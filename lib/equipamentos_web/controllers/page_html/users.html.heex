@@ -1,0 +1,10 @@
+<main class="w-full overflow-auto border border-red-500">
+  <h1 class="p-4 bg-slate-200 w-full ">Users page!</h1>
+  <ul>
+    <%= for user <- @users do %>
+      <li>
+        <%= user.name %> - <%= user.email %>
+      </li>
+    <% end %>
+  </ul>
+</main>

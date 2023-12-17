@@ -18,6 +18,13 @@ defmodule EquipamentosWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/users", PageController, :users
+  end
+
+  scope "/api", EquipamentosWeb do
+    pipe_through :api
+
+    resources "/municipios", MunicipioController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.
