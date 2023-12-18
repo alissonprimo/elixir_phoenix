@@ -4,3 +4,7 @@
 
 /* This file is for your main application CSS */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Play:wght@400;700&display=swap");
+
+[data-phx-main] {
+  @apply h-full w-full overflow-hidden flex flex-col;
+}

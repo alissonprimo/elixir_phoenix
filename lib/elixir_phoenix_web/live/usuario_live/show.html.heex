@@ -1,0 +1,31 @@
+<.header>
+  Usuario <%= @usuario.id %>
+  <:subtitle>This is a usuario record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/usuarios/#{@usuario}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit usuario</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Nome completo"><%= @usuario.nome_completo %></:item>
+  <:item title="Cpf"><%= @usuario.cpf %></:item>
+  <:item title="Email"><%= @usuario.email %></:item>
+  <:item title="Telefone"><%= @usuario.telefone %></:item>
+  <:item title="Lotacao"><%= @usuario.lotacao %></:item>
+  <:item title="Nome funcional"><%= @usuario.nome_funcional %></:item>
+</.list>
+
+<.back navigate={~p"/usuarios"}>Back to usuarios</.back>
+
+<.modal :if={@live_action == :edit} id="usuario-modal" show on_cancel={JS.patch(~p"/usuarios/#{@usuario}")}>
+  <.live_component
+    module={ElixirPhoenixWeb.UsuarioLive.FormComponent}
+    id={@usuario.id}
+    title={@page_title}
+    action={@live_action}
+    usuario={@usuario}
+    patch={~p"/usuarios/#{@usuario}"}
+  />
+</.modal>

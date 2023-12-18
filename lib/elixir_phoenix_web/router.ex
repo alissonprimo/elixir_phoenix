@@ -18,6 +18,12 @@ defmodule ElixirPhoenixWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/usuarios", UsuarioLive.Index, :index
+    live "/usuarios/new", UsuarioLive.Index, :new
+    live "/usuarios/:id/edit", UsuarioLive.Index, :edit
+
+    live "/usuarios/:id", UsuarioLive.Show, :show
+    live "/usuarios/:id/show/edit", UsuarioLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

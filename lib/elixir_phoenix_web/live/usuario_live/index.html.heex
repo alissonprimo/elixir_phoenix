@@ -1,0 +1,53 @@
+<.header>
+  Listing Usuarios
+  <:actions>
+    <.link patch={~p"/usuarios/new"}>
+      <.button>New Usuario</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="overflow-x-auto mt-4 !overflow-y-hidden">
+  <.table
+    id="usuarios"
+    rows={@streams.usuarios}
+    row_click={fn {_id, usuario} -> JS.navigate(~p"/usuarios/#{usuario}") end}
+  >
+    <:col :let={{_id, usuario}} label="Nome completo"><%= usuario.nome_completo %></:col>
+    <:col :let={{_id, usuario}} label="Cpf"><%= usuario.cpf %></:col>
+    <:col :let={{_id, usuario}} label="Email"><%= usuario.email %></:col>
+    <:col :let={{_id, usuario}} label="Telefone"><%= usuario.telefone %></:col>
+    <:col :let={{_id, usuario}} label="Lotacao"><%= usuario.lotacao %></:col>
+    <:col :let={{_id, usuario}} label="Nome funcional"><%= usuario.nome_funcional %></:col>
+    <:action :let={{_id, usuario}}>
+      <div class="sr-only">
+        <.link navigate={~p"/usuarios/#{usuario}"}>Show</.link>
+      </div>
+      <.link patch={~p"/usuarios/#{usuario}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={{id, usuario}}>
+      <.link
+        phx-click={JS.push("delete", value: %{id: usuario.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </:action>
+  </.table>
+</div>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="usuario-modal"
+  show
+  on_cancel={JS.patch(~p"/usuarios")}
+>
+  <.live_component
+    module={ElixirPhoenixWeb.UsuarioLive.FormComponent}
+    id={@usuario.id || :new}
+    title={@page_title}
+    action={@live_action}
+    usuario={@usuario}
+    patch={~p"/usuarios"}
+  />
+</.modal>
